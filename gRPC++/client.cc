@@ -13,6 +13,9 @@
 #include <grpcpp/create_channel.h>
 #include <grpcpp/security/credentials.h>
 #include "demo.grpc.pb.h"
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
  
 using grpc::Channel;
 using grpc::ClientContext;
@@ -195,6 +198,10 @@ public:
 					out.write(rowData.c_str(), sizeof(char) * (rowData.size()));
 					out.close();
 
+                    Mat m2 = imread(savePath+name);
+                    imshow("after",m2);
+                    cvWaitKey(0);
+
 
 					
 				}
@@ -219,6 +226,12 @@ int main(int argc, char** argv) {
     std::cout << "please assign the img list file:" << std::endl;
     std::vector<std::string> imglist;
     imglist.push_back("demo.png");
+
+    Mat m1 = imread("demo.png");
+    imshow("before",m1);
+    cvWaitKey(10);
+    
+
     client.ImgUpload(imglist);
     std::cout << "-------------- fetch image result --------------" << std::endl;
     client.resImgFetched("98bb90c44f55aaeeae417d8233226785.jpg");
