@@ -162,7 +162,6 @@ public:
         else {
             std::cout << "ImgUpload rpc failed with code: "<<stats.code()<< std::endl;
         }*/
-        std::cout << "finsh" << std::endl;
         ::ImgTransmit::ImgInfo info;
 		int point_count = 0;
 		int feature_count = 0;
@@ -174,11 +173,9 @@ public:
 		int count = 0;
 		
 		while (writer->Read(&info)) {
-            std::cout << "finsh1" << std::endl;
 			//挨个处理图片
 			try {
 				std::string namee = info.name();
-                std::cout << "name:"+namee << std::endl;
                 int index = namee.find_last_of("//");
                 std::string name = namee.substr(index);
 				google::protobuf::Map<google::protobuf::int32, ImgInfo_Img> maps = info.maps();
@@ -233,10 +230,10 @@ int main(int argc, char** argv) {
     
 
     client.ImgUpload(imglist);
-    std::cout << "-------------- fetch image result --------------" << std::endl;
+    /*std::cout << "-------------- fetch image result --------------" << std::endl;
     client.resImgFetched("98bb90c44f55aaeeae417d8233226785.jpg");
     std::cout << "-------------- fetch description result --------------" << std::endl;
     client.resDescFetched("98bb90c44f55aaeeae417d8233226785.jpg");
-    std::cin.get();
+    std::cin.get();*/
     return 0;
 }
